@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse'
+
+group = 'com.howardlewisship.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+           
+    mavenRepo urls: "https://repository.apache.org/content/repositories/orgapachetapestry-023/"    
+}
+
+
+dependencies {
+  compile "org.apache.tapestry:plastic:5.3.0"
+  testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
+}
