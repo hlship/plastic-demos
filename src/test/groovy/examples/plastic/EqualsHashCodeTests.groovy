@@ -13,9 +13,13 @@ class EqualsHashCodeTests extends Specification {
 
 	PlasticManagerDelegate delegate = new StandardDelegate(new EqualsHashCodeWorker())
 
-	PlasticManager mgr = PlasticManager.withContextClassLoader().packages(["examples.plastic.transformed"]).delegate(delegate).create();
+	PlasticManager mgr = PlasticManager.withContextClassLoader().packages([
+		"examples.plastic.transformed"
+	]).delegate(delegate).create();
 
 	ClassInstantiator instantiator = mgr.getClassInstantiator(EqualsDemo.class.name)
+
+	def instance = instantiator.newInstance()
 
 	def "simple comparison"() {
 		def instance1 = instantiator.newInstance()
@@ -42,5 +46,17 @@ class EqualsHashCodeTests extends Specification {
 		instance1 != instance3
 
 		instance1 == instance4
+	}
+
+	def "comparison against other object type is false"() {
+		expect:
+
+		instance != "some string"
+	}
+
+	def "comparison against null is false"() {
+		expect:
+
+		instance != null
 	}
 }
