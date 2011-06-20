@@ -22,11 +22,6 @@ public class EqualsHashCodeWorker implements PlasticClassTransformer {
 
   private static final int PRIME = 37;
 
-  /** Null safe comparison of two objects. */
-  private static boolean compare(Object left, Object right) {
-    return left == right || left.equals(right);
-  }
-
   public void transform(PlasticClass plasticClass) {
 
     if (!plasticClass.hasAnnotation(ImplementsEqualsHashCode.class)) {
@@ -66,8 +61,6 @@ public class EqualsHashCodeWorker implements PlasticClassTransformer {
     plasticClass.introduceMethod(EQUALS).addAdvice(new MethodAdvice() {
 
       public void advise(MethodInvocation invocation) {
-
-        // Until proven otherwise.
 
         Object thisInstance = invocation.getInstance();
         Object otherInstance = invocation.getParameter(0);
