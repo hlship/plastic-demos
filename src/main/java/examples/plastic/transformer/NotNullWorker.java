@@ -11,6 +11,36 @@ import examples.plastic.annotations.NotNull;
 
 public class NotNullWorker implements PlasticClassTransformer {
 
+  private static final class NullCheckingConduit implements
+      FieldConduit<Object> {
+
+    private final String className;
+
+    private final String fieldName;
+
+    private Object fieldValue;
+
+    private NullCheckingConduit(String className, String fieldName) {
+      this.className = className;
+      this.fieldName = fieldName;
+    }
+
+    public Object get(Object instance, InstanceContext context) {
+
+      return fieldValue;
+    }
+
+    public void set(Object instance, InstanceContext context, Object newValue) {
+
+      if (newValue == null)
+        throw new IllegalArgumentException(String.format(
+            "Field %s of class %s may not be assigned null.", className,
+            fieldName));
+
+      fieldValue = newValue;
+    }
+  }
+
   public void transform(PlasticClass plasticClass) {
 
     for (PlasticField field : plasticClass
@@ -22,26 +52,7 @@ public class NotNullWorker implements PlasticClassTransformer {
       field.setComputedConduit(new ComputedValue<FieldConduit<?>>() {
 
         public FieldConduit<Object> get(InstanceContext context) {
-
-          return new FieldConduit<Object>() {
-            private Object fieldValue;
-
-            public Object get(Object instance, InstanceContext context) {
-
-              return fieldValue;
-            }
-
-            public void set(Object instance, InstanceContext context,
-                Object newValue) {
-
-              if (newValue == null)
-                throw new IllegalArgumentException(String.format(
-                    "Field %s of class %s may not be assigned null.",
-                    className, fieldName));
-
-              fieldValue = newValue;
-            }
-          };
+          return new NullCheckingConduit(className, fieldName);
         }
       });
     }
