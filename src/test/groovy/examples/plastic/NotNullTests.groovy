@@ -1,23 +1,14 @@
 package examples.plastic
 
-import org.apache.tapestry5.internal.plastic.StandardDelegate
 import org.apache.tapestry5.plastic.ClassInstantiator
 import org.apache.tapestry5.plastic.PlasticManager
-import org.apache.tapestry5.plastic.PlasticManagerDelegate
 
-import spock.lang.Specification
 import examples.plastic.transformed.NotNullDemo
 import examples.plastic.transformer.NotNullWorker
 
-class NotNullTests extends Specification {
+class NotNullTests extends PlasticDemosSpecification {
 
-  PlasticManagerDelegate delegate = new StandardDelegate(new NotNullWorker())
-
-  PlasticManager mgr = PlasticManager.withContextClassLoader().packages([
-    "examples.plastic.transformed"
-  ]).delegate(delegate).create();
-
-  ClassInstantiator instantiator = mgr.getClassInstantiator(NotNullDemo.class.name)
+  ClassInstantiator instantiator = createInstantiator(new NotNullWorker(), NotNullDemo.class)
 
   def "null default value is allowed"() {
     def o = instantiator.newInstance()
