@@ -9,15 +9,9 @@ import spock.lang.Specification
 import examples.plastic.transformed.EqualsDemo
 import examples.plastic.transformer.EqualsHashCodeWorker
 
-class EqualsHashCodeTests extends Specification {
+class EqualsHashCodeTests extends PlasticDemosSpecification {
 
-  PlasticManagerDelegate delegate = new StandardDelegate(new EqualsHashCodeWorker())
-
-  PlasticManager mgr = PlasticManager.withContextClassLoader().packages([
-    "examples.plastic.transformed"
-  ]).delegate(delegate).create();
-
-  ClassInstantiator instantiator = mgr.getClassInstantiator(EqualsDemo.class.name)
+  ClassInstantiator instantiator = createInstantiator(new EqualsHashCodeWorker(), EqualsDemo.class)
 
   def instance = instantiator.newInstance()
 
