@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'groovy'
 
 group = 'com.howardlewisship.example'
 version = '0.0.1-SNAPSHOT'
@@ -13,8 +14,6 @@ repositories {
     mavenRepo urls: "http://m2repo.spockframework.org/snapshots"
      
 }
-
-usePlugin("groovy")
 
 dependencies {
   compile "org.apache.tapestry:plastic:5.3-alpha-2"
