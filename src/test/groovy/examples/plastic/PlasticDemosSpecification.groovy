@@ -13,7 +13,7 @@ import spock.lang.Specification
  * Base class for tests, providing helpers for creating PlasticManager or ClassInstantiator.
  *
  */
-class PlasticDemosSpecification extends Specification {
+abstract class PlasticDemosSpecification extends Specification {
 
   PlasticManager createPlasticManager(PlasticClassTransformer transformer) {
     PlasticManagerDelegate delegate = new StandardDelegate(transformer)
