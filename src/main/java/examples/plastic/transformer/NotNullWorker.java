@@ -1,18 +1,12 @@
 package examples.plastic.transformer;
 
-import org.apache.tapestry5.plastic.ComputedValue;
-import org.apache.tapestry5.plastic.FieldConduit;
-import org.apache.tapestry5.plastic.InstanceContext;
-import org.apache.tapestry5.plastic.PlasticClass;
-import org.apache.tapestry5.plastic.PlasticClassTransformer;
-import org.apache.tapestry5.plastic.PlasticField;
-
 import examples.plastic.annotations.NotNull;
+import org.apache.tapestry5.plastic.*;
 
 public class NotNullWorker implements PlasticClassTransformer {
 
   private static final class NullCheckingConduit implements
-      FieldConduit<Object> {
+          FieldConduit<Object> {
 
     private final String className;
 
@@ -32,10 +26,11 @@ public class NotNullWorker implements PlasticClassTransformer {
 
     public void set(Object instance, InstanceContext context, Object newValue) {
 
-      if (newValue == null)
+      if (newValue == null) {
         throw new IllegalArgumentException(String.format(
-            "Field %s of class %s may not be assigned null.", className,
-            fieldName));
+                "Field %s of class %s may not be assigned null.",
+                fieldName, className));
+      }
 
       fieldValue = newValue;
     }
@@ -44,7 +39,7 @@ public class NotNullWorker implements PlasticClassTransformer {
   public void transform(PlasticClass plasticClass) {
 
     for (PlasticField field : plasticClass
-        .getFieldsWithAnnotation(NotNull.class)) {
+            .getFieldsWithAnnotation(NotNull.class)) {
 
       final String className = plasticClass.getClassName();
       final String fieldName = field.getName();

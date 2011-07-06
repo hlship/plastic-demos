@@ -43,6 +43,6 @@ class NotNullTests extends PlasticDemosSpecification {
 
     def e = thrown(IllegalArgumentException)
 
-    e.message == "Field examples.plastic.transformed.NotNullDemo of class value may not be assigned null."
+    e.message == "Field value of class examples.plastic.transformed.NotNullDemo may not be assigned null."
   }
 }
