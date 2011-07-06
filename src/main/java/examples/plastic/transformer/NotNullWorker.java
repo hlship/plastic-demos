@@ -36,17 +36,17 @@ public class NotNullWorker implements PlasticClassTransformer {
     }
   }
 
+  @SuppressWarnings({"unchecked"})
   public void transform(PlasticClass plasticClass) {
-
     for (PlasticField field : plasticClass
             .getFieldsWithAnnotation(NotNull.class)) {
 
       final String className = plasticClass.getClassName();
       final String fieldName = field.getName();
 
-      field.setComputedConduit(new ComputedValue<FieldConduit<?>>() {
+      field.setComputedConduit(new ComputedValue() {
 
-        public FieldConduit<Object> get(InstanceContext context) {
+        public Object get(InstanceContext context) {
           return new NullCheckingConduit(className, fieldName);
         }
       });
