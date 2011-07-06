@@ -5,3 +5,7 @@ bin
 test-output
 .gradle
 build
+*.iml
+*.ipr
+*.iws
+out/

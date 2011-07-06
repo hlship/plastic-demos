@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 group = 'com.howardlewisship.example'
 version = '0.0.1-SNAPSHOT'
@@ -8,7 +8,7 @@ version = '0.0.1-SNAPSHOT'
 repositories {
     mavenCentral()
            
-    mavenRepo urls: "https://repository.apache.org/content/repositories/orgapachetapestry-023/"   
+    mavenRepo urls: "https://repository.apache.org/content/repositories/staging/"   
     
     mavenRepo urls: "http://m2repo.spockframework.org/snapshots"
      
@@ -17,7 +17,7 @@ repositories {
 usePlugin("groovy")
 
 dependencies {
-  compile "org.apache.tapestry:plastic:5.3.0"
+  compile "org.apache.tapestry:plastic:5.3-alpha-2"
 
   groovy "org.codehaus.groovy:groovy-all:1.7.4"
 
